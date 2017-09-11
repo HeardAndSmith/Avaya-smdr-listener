@@ -1,0 +1,46 @@
+#Table definition to run Queries from AWS Athena
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS AvayaLogs.SMDR (
+  `call_start` string,
+  `connected_time` string,
+  `ring_time` int,
+  `caller` string,
+  `direction` string,
+  `called_number` string,
+  `dialed_number` string,
+  `account` string,
+  `is_internal` string,
+  `call_id` bigint,
+  `continuation` int,
+  `party1device` string,
+  `party1name` string,
+  `party2device` string,
+  `party2name` string,
+  `hold_time` int,
+  `park_time` int,
+  `authcode` string,
+  `authvalid` string,
+  `user_charged` string,
+  `call_charge` string,
+  `currency` string,
+  `amount_last_user_charge` string,
+  `call_units` string,
+  `units_last_user_charge` string,
+  `cost_per_unit` string,
+  `mark_up` string,
+  `external_targeting_cause` string,
+  `external_targeter_id` string,
+  `external_targeted_number` string,
+  `server_ip_caller` string,
+  `unique_call_id_caller_ext` string,
+  `server_ip_called` string,
+  `unique_call_id_called_ext` string,
+  `utc_time` date 
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = ',',
+  'field.delim' = ','
+) LOCATION 's3://heardandsmith-smdr-avaya-call-logs/ipoffice-raw/'
+TBLPROPERTIES ('has_encrypted_data'='false');
