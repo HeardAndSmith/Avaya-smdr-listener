@@ -7,7 +7,7 @@ client = boto3.client('firehose')
 notify = boto3.client('sns')
 #f = open('dump.csv','bw')
 
-HOST = '192.168.100.4'                 # Symbolic name meaning all available interfaces
+HOST = '192.168.100.4'                 
 PORT = 3000              # Arbitrary non-privileged port
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
@@ -28,6 +28,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             if not data: break
 print ('Connection lost at \n', datetime.now())
 notify.publish(
-    TargetArn='arn:aws:sns:us-east-1:076950947777:faximport_alert',
+    TargetArn='arn:aws:sns:us-east-1:XXXXXXXXXXXX:topic_name',
     Message='AVAYA/SMDR Log system - Connection lost at \n' + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 )
